@@ -19,24 +19,111 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="TaFood - Conectando o melhor da gastronomia.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#E53935">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="tafood_app">
+  <meta name="apple-mobile-web-app-title" content="TaFood">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png" />
 
-  <title>tafood_app</title>
+  <title>TaFood</title>
   <link rel="manifest" href="manifest.json">
+
+  <style>
+    body {
+      background-color: #F5F5F5;
+      height: 100vh;
+      width: 100vw;
+      margin: 0;
+      padding: 0;
+      overscroll-behavior: none;
+    }
+
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #FFFFFF;
+      z-index: 9999;
+    }
+
+    .loading-content {
+      text-align: center;
+    }
+
+    .loading-text {
+      margin-top: 16px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 18px;
+      color: #E53935;
+    }
+
+    @media screen and (max-width: 768px) {
+      .loading-text {
+        font-size: 16px;
+      }
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 5px solid #E1E1E1;
+      border-bottom-color: #E53935;
+      border-radius: 50%;
+      display: inline-block;
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <!-- Loading indicator -->
+  <div class="loading" id="loading">
+    <div class="loading-content">
+      <span class="spinner"></span>
+      <p class="loading-text"></p>
+    </div>
+  </div>
+
   <script src='https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.min.mjs' type='module'></script>
   <script src="flutter_bootstrap.js" async></script>
+
+  <script>
+    // Hide loading indicator when Flutter app is loaded
+    window.addEventListener('flutter-first-frame', function () {
+      const loadingElement = document.getElementById('loading');
+      if (loadingElement) {
+        loadingElement.style.opacity = '0';
+        loadingElement.style.transition = 'opacity 0.4s ease-out';
+        setTimeout(function () {
+          loadingElement.style.display = 'none';
+        }, 400);
+      }
+    });
+  </script>
 </body>
 
 </html>
